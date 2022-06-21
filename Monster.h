@@ -47,6 +47,7 @@ public:
     const sf::FloatRect getBounds() const;
     const int getDamage() const;
     const int getHP() const;
+    const int getPoints() const;
 
     void loseHP();
 

@@ -38,6 +38,15 @@ private:
     //Resources
     std::map<std::string ,sf::Texture*> textures;
 
+    //Game Logic
+    int points;
+
+    //GUI
+    sf::Font font;
+    sf::Text pointText;
+
+    sf::Text gameOverText;
+
     //Private functions
     void updatePollEvents();
     void initVariables();
@@ -45,12 +54,19 @@ private:
     void initTextures();
     void initEnemies();
     void initWorld();
+    void initGUI();
+
     void renderWorld();
+    void renderGUI();
 
     void updateInput();
     void updateBorderCollision();
     void updateBullets();
     void updateEnemyBullets();
+    void updateEnemies();
+    void updateCombat();
+    void updateGUI();
+    void updateMousePosAndDir();
 
 public:
     Game();
@@ -58,8 +74,7 @@ public:
     void run();
     void update();
     void render();
-    void updateEnemies();
-    void updateCombat();
+
 
 };
 

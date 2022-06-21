@@ -24,7 +24,6 @@ private:
     void initSprite();
     void initVariables();
     void initHPBar();
-    void updateHPBar();
     void updateAttack();
     void updatePosition();
 
@@ -34,6 +33,7 @@ public:
     void render(sf::RenderTarget &target);
     void update();
 
+    void updateHPBar();
     sf::RectangleShape HPBar;
     sf::RectangleShape HPBarBack;
 

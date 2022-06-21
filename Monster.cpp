@@ -118,3 +118,7 @@ bool Monster::canAttack()
 {
     return false;
 }
+
+const int Monster::getPoints() const {
+    return this->points;
+}

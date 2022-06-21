@@ -16,29 +16,30 @@ void Game::run()
         {
             this->update();
         }
+
         this->render();
     }
 }
 
 void Game::update()
 {
-    updateInput();
-    updateBorderCollision();
+    this->updateInput();
+
+    this->updateBorderCollision();
+
     this->player->update();
 
-    mousePos.x = sf::Mouse::getPosition(*window).x;
-    mousePos.y = sf::Mouse::getPosition(*window).y;
+    this->updateMousePosAndDir();
 
-    aimDir = mousePos - player->getPlayerCenter();
-    aimDirNorm = aimDir / sqrt(pow(aimDir.x,2.0f) + pow(aimDir.y,2.0f));
+    this->updateEnemies();
 
-    updateEnemies();
+    this->updateBullets();
 
-    updateBullets();
+    this->updateEnemyBullets();
 
-    updateEnemyBullets();
+    this->updateCombat();
 
-    updateCombat();
+    this->updateGUI();
 }
 
 void Game::updatePollEvents()
@@ -57,10 +58,11 @@ void Game::updatePollEvents()
 
 void Game::render()
 {
-
     this->window->clear();
 
     this->renderWorld();
+
+    this->renderGUI();
 
     this->player->render(*this->window);
 
@@ -79,15 +81,23 @@ void Game::render()
         bullet->render(this->window);
     }
 
+    if(this->player->getHP() <= 0)
+    {
+        this->player->updateHPBar();
+        this->window->draw(this->gameOverText);
+    }
+
     this->window->display();
 }
 
 Game::Game()
 {
+    this->initWindow();
+    this->initVariables();
     this->initWorld();
     this->player = new Player();
     this->initEnemies();
-    this->initWindow();
+    this->initGUI();
     this->initTextures();
 }
 
@@ -203,6 +213,7 @@ void Game::updateEnemyBullets()
 
 void Game::initVariables()
 {
+    this->points = 0;
     this->mousePos = sf::Vector2f(0.f,0.f);
 }
 
@@ -321,10 +332,10 @@ void Game::updateCombat() {
         {
             if(this->enemies[i]->getBounds().intersects(this->bullets[j]->getBounds()))
             {
-                //points += this->enemies[i]->getPoints();
                 enemies[i]->loseHP();
                 if(enemies[i]->getHP() < 1)
                 {
+                    points += this->enemies[i]->getPoints();
                     delete this->enemies[i];
                     this->enemies.erase(this->enemies.begin() + i);
                     enemy_deleted = true;
@@ -347,4 +358,45 @@ void Game::updateCombat() {
         }
     }
 
+}
+
+void Game::initGUI()
+{
+    //Load font
+    if(!this->font.loadFromFile("/Users/milanceandrejic/CLionProjects/GameProject/fonts/Dosis-Light.ttf"))
+        std::cerr<<"ERROR::GAME::Failed to load font\n";
+
+    //Init point text
+    this->pointText.setFont(this->font);
+    this->pointText.setCharacterSize(48);
+    this->pointText.setPosition(25.f,25.f);
+    this->pointText.setFillColor(sf::Color::White);
+    this->pointText.setString("test");
+
+    //init Game Over TEXT
+    this->gameOverText.setFont(this->font);
+    this->gameOverText.setCharacterSize(120);
+    this->gameOverText.setFillColor(sf::Color(255,100,100,255));
+    this->gameOverText.setString("GAME\nOVER");
+    this->gameOverText.setPosition(this->window->getSize().x/2.f - this->gameOverText.getGlobalBounds().width/2.f,
+                                   this->window->getSize().y/2.f - this->gameOverText.getGlobalBounds().height/1.8f);
+}
+
+void Game::updateGUI()
+{
+    this->pointText.setString("Score: " + std::to_string(this->points));
+}
+
+void Game::updateMousePosAndDir()
+{
+    mousePos.x = sf::Mouse::getPosition(*window).x;
+    mousePos.y = sf::Mouse::getPosition(*window).y;
+
+    aimDir = mousePos - player->getPlayerCenter();
+    aimDirNorm = aimDir / sqrt(pow(aimDir.x,2.0f) + pow(aimDir.y,2.0f));
+}
+
+void Game::renderGUI()
+{
+    this->window->draw(pointText);
 }

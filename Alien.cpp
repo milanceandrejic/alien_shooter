@@ -22,7 +22,7 @@ void Alien::initTexture()
     }
 }
 
-Alien::Alien() : Monster(2,5,0.5f,5)
+Alien::Alien() : Monster(2,5,0.8f,5)
 {
     initTexture();
     initSprite();
