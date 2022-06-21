@@ -10,6 +10,7 @@ class Monster{
 
 protected:
     int health;
+    int healthMAX;
     sf::Sprite sprite;
     sf::Texture texture;
 
@@ -21,6 +22,9 @@ protected:
     int damage;
     int points;
     float speed;
+
+    sf::RectangleShape HPBar;
+    sf::RectangleShape HPBarBack;
 
     virtual void initTexture();
     virtual void initSprite();
@@ -41,6 +45,8 @@ public:
 
     void loseHP();
 
+    void initHPBar();
+    void updateHPBar();
 };
 
 

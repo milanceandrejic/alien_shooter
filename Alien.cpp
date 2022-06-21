@@ -33,9 +33,10 @@ Alien::~Alien()
 
 }
 
-Alien::Alien(sf::Vector2f pos) : Monster(2,5,0.5f,5)
+Alien::Alien(sf::Vector2f pos) : Monster(2,5,0.8f,5)
 {
     initTexture();
     initSprite();
     this->sprite.setPosition(pos);
+    this->initHPBar();
 }

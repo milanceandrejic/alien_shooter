@@ -19,11 +19,14 @@ Monster::~Monster()
 void Monster::render(sf::RenderTarget *target)
 {
     target->draw(this->sprite);
+    target->draw(this->HPBarBack);
+    target->draw(this->HPBar);
 }
 
 void Monster::update()
 {
     this->sprite.move(this->direction * this->speed);
+    this->updateHPBar();
 }
 
 void Monster::initSprite()
@@ -38,7 +41,8 @@ void Monster::initTexture()
 
 Monster::Monster(int _health, int _points, float _speed, int _damage)
 {
-    this->health = _health;
+    this->healthMAX = _health;
+    this->health = healthMAX;
     this->points = _points;
     this->speed = _speed;
     this->damage = _damage;
@@ -79,4 +83,23 @@ void Monster::loseHP()
 
 const int Monster::getHP() const {
     return this->health;
+}
+
+void Monster::initHPBar()
+{
+    this->HPBar.setSize(sf::Vector2f(this->getBounds().width,3.f));
+    this->HPBar.setFillColor(sf::Color::Red);
+    this->HPBar.setPosition(sf::Vector2f(this->getPosition().x,this->getPosition().y-15.0f));
+
+    this->HPBarBack = this->HPBar;
+    this->HPBarBack.setFillColor(sf::Color(25,25,25,200));
+}
+
+void Monster::updateHPBar()
+{
+    float hpPercent = GetPercent(health, healthMAX);
+    this->HPBar.setSize(sf::Vector2f(this->getBounds().width * hpPercent,this->HPBar.getSize().y));
+    
+    this->HPBar.setPosition(sf::Vector2f(this->getPosition().x,this->getPosition().y-15.0f));
+    this->HPBarBack.setPosition(sf::Vector2f(this->getPosition().x,this->getPosition().y-15.0f));
 }

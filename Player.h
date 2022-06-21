@@ -23,6 +23,8 @@ private:
     void initTexture();
     void initSprite();
     void initVariables();
+    void initHPBar();
+    void updateHPBar();
     void updateAttack();
     void updatePosition();
 
@@ -31,6 +33,9 @@ public:
     virtual ~Player();
     void render(sf::RenderTarget &target);
     void update();
+
+    sf::RectangleShape HPBar;
+    sf::RectangleShape HPBarBack;
 
     void move(const float dirX, const float dirY);
 

@@ -34,9 +34,10 @@ BugAlien::~BugAlien()
 
 }
 
-BugAlien::BugAlien(sf::Vector2f pos) : Monster(4,10,0.2f,10)
+BugAlien::BugAlien(sf::Vector2f pos) : Monster(4,10,0.5f,10)
 {
     initTexture();
     initSprite();
     this->sprite.setPosition(pos);
+    this->initHPBar();
 }
