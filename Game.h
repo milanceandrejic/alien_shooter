@@ -9,6 +9,7 @@
 #include "Libraries.h"
 #include "Alien.h"
 #include "BugAlien.h"
+#include "FireAlien.h"
 #include <map>
 
 
@@ -23,6 +24,7 @@ private:
     //Player
     Player *player;
     std::vector<Bullet*> bullets;
+    std::vector<Bullet*> enemyBullets;
 
     //Enemies
     float spawnTimer;
@@ -48,6 +50,7 @@ private:
     void updateInput();
     void updateBorderCollision();
     void updateBullets();
+    void updateEnemyBullets();
 
 public:
     Game();

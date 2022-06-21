@@ -99,7 +99,22 @@ void Monster::updateHPBar()
 {
     float hpPercent = GetPercent(health, healthMAX);
     this->HPBar.setSize(sf::Vector2f(this->getBounds().width * hpPercent,this->HPBar.getSize().y));
-    
+
     this->HPBar.setPosition(sf::Vector2f(this->getPosition().x,this->getPosition().y-15.0f));
     this->HPBarBack.setPosition(sf::Vector2f(this->getPosition().x,this->getPosition().y-15.0f));
+}
+
+void Monster::attack(std::vector<Bullet*> &_enemy_bullets)
+{
+
+}
+
+void Monster::updateAttack()
+{
+
+}
+
+bool Monster::canAttack()
+{
+    return false;
 }

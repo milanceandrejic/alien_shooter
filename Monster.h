@@ -19,6 +19,9 @@ protected:
     sf::Vector2f aimDir;
     sf::Vector2f aimDirNorm;
 
+    float attackCoolDownMAX;
+    float attackCoolDown;
+
     int damage;
     int points;
     float speed;
@@ -28,6 +31,7 @@ protected:
 
     virtual void initTexture();
     virtual void initSprite();
+    virtual void updateAttack();
 
 public:
     Monster();
@@ -35,6 +39,7 @@ public:
     virtual ~Monster();
 
     virtual void update();
+    virtual void attack(std::vector<Bullet*> &_enemy_bullets);
     virtual void render(sf::RenderTarget* target);
     virtual void updateDirection(float x, float y);
     virtual void updateDirection(sf::Vector2f rel);
@@ -47,6 +52,8 @@ public:
 
     void initHPBar();
     void updateHPBar();
+
+    virtual bool canAttack();
 };
 
 

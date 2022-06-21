@@ -19,6 +19,7 @@ float GetPercent(T value, T maxValue)
 {
     return 1.0f*value/maxValue;
 };
+
 template <typename T>
 void ExchangeValues(T& t1, T& t2)
 {

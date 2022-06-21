@@ -4,7 +4,7 @@ project(GameProject)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SFML_ROOT /usr/local/lib)
-set(SOURCE_FILES main.cpp Game.cpp Game.h Player.cpp Player.h Bullet.cpp Bullet.h Libraries.h Monster.cpp Monster.h Alien.cpp Alien.h BugAlien.cpp BugAlien.h)
+set(SOURCE_FILES main.cpp Game.cpp Game.h Player.cpp Player.h Bullet.cpp Bullet.h Libraries.h Monster.cpp Monster.h Alien.cpp Alien.h BugAlien.cpp BugAlien.h FireAlien.cpp FireAlien.h)
 add_executable(GameProject ${SOURCE_FILES})
 include_directories(/usr/local/include)
 

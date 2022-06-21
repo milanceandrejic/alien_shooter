@@ -11,11 +11,19 @@ private:
 
     void initTexture();
     void initSprite();
+    void initCooldown();
+
+    float attackCoolDownMAX2;
+
+    void updateAttack();
+
 public:
     BugAlien();
     BugAlien(sf::Vector2f pos);
+    void attack(std::vector<Bullet*> &_enemy_bullets);
     virtual ~BugAlien();
-
+    void update();
+    bool canAttack();
 
 };
 

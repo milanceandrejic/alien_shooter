@@ -121,6 +121,13 @@ build CMakeFiles/GameProject.dir/BugAlien.cpp.o: CXX_COMPILER__GameProject_Debug
   OBJECT_DIR = CMakeFiles/GameProject.dir
   OBJECT_FILE_DIR = CMakeFiles/GameProject.dir
 
+build CMakeFiles/GameProject.dir/FireAlien.cpp.o: CXX_COMPILER__GameProject_Debug /Users/milanceandrejic/CLionProjects/GameProject/FireAlien.cpp || cmake_object_order_depends_target_GameProject
+  DEP_FILE = CMakeFiles/GameProject.dir/FireAlien.cpp.o.d
+  FLAGS = -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+  INCLUDES = -I/usr/local/include -isystem /opt/homebrew/include
+  OBJECT_DIR = CMakeFiles/GameProject.dir
+  OBJECT_FILE_DIR = CMakeFiles/GameProject.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target GameProject
@@ -129,7 +136,7 @@ build CMakeFiles/GameProject.dir/BugAlien.cpp.o: CXX_COMPILER__GameProject_Debug
 #############################################
 # Link the executable GameProject
 
-build GameProject: CXX_EXECUTABLE_LINKER__GameProject_Debug CMakeFiles/GameProject.dir/main.cpp.o CMakeFiles/GameProject.dir/Game.cpp.o CMakeFiles/GameProject.dir/Player.cpp.o CMakeFiles/GameProject.dir/Bullet.cpp.o CMakeFiles/GameProject.dir/Monster.cpp.o CMakeFiles/GameProject.dir/Alien.cpp.o CMakeFiles/GameProject.dir/BugAlien.cpp.o | /opt/homebrew/lib/libsfml-graphics.2.5.1.dylib /opt/homebrew/lib/libsfml-audio.2.5.1.dylib /opt/homebrew/lib/libsfml-network.2.5.1.dylib /opt/homebrew/lib/libsfml-window.2.5.1.dylib /opt/homebrew/lib/libsfml-system.2.5.1.dylib
+build GameProject: CXX_EXECUTABLE_LINKER__GameProject_Debug CMakeFiles/GameProject.dir/main.cpp.o CMakeFiles/GameProject.dir/Game.cpp.o CMakeFiles/GameProject.dir/Player.cpp.o CMakeFiles/GameProject.dir/Bullet.cpp.o CMakeFiles/GameProject.dir/Monster.cpp.o CMakeFiles/GameProject.dir/Alien.cpp.o CMakeFiles/GameProject.dir/BugAlien.cpp.o CMakeFiles/GameProject.dir/FireAlien.cpp.o | /opt/homebrew/lib/libsfml-graphics.2.5.1.dylib /opt/homebrew/lib/libsfml-audio.2.5.1.dylib /opt/homebrew/lib/libsfml-network.2.5.1.dylib /opt/homebrew/lib/libsfml-window.2.5.1.dylib /opt/homebrew/lib/libsfml-system.2.5.1.dylib
   FLAGS = -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/lib  /opt/homebrew/lib/libsfml-graphics.2.5.1.dylib  /opt/homebrew/lib/libsfml-audio.2.5.1.dylib  /opt/homebrew/lib/libsfml-network.2.5.1.dylib  /opt/homebrew/lib/libsfml-window.2.5.1.dylib  /opt/homebrew/lib/libsfml-system.2.5.1.dylib
   OBJECT_DIR = CMakeFiles/GameProject.dir

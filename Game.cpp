@@ -36,6 +36,8 @@ void Game::update()
 
     updateBullets();
 
+    updateEnemyBullets();
+
     updateCombat();
 }
 
@@ -72,6 +74,11 @@ void Game::render()
         bullet->render(this->window);
     }
 
+    for (auto *bullet : this->enemyBullets)
+    {
+        bullet->render(this->window);
+    }
+
     this->window->display();
 }
 
@@ -92,7 +99,8 @@ void Game::initWindow()
     this->window->setVerticalSyncEnabled(false);
 }
 
-void Game::updateInput() {
+void Game::updateInput()
+{
     //Move player
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         this->player->move(-1.f,0.f);
@@ -170,6 +178,29 @@ void Game::updateBullets()
     }
 }
 
+void Game::updateEnemyBullets()
+{
+    unsigned counter=0;
+    for (auto *bullet : this->enemyBullets)
+    {
+        bullet->update();
+
+        //Bullet culling
+        if( (bullet->getBounds().top + bullet->getBounds().height < 0.f) ||
+                (bullet->getBounds().top > this->window->getSize().y) ||
+                (bullet->getBounds().left + bullet->getBounds().width < 0.f) ||
+                (bullet->getBounds().left > this->window->getSize().x)
+        )
+        {
+            //Bullet delete
+            delete this->enemyBullets.at(counter);
+            this->enemyBullets.erase(this->enemyBullets.begin() + counter);
+            --counter;
+        }
+        ++counter;
+    }
+}
+
 void Game::initVariables()
 {
     this->mousePos = sf::Vector2f(0.f,0.f);
@@ -189,12 +220,16 @@ Game::~Game()
     {
         delete i;
     }
+    for (auto *i :this->enemyBullets)
+    {
+        delete i;
+    }
 
 }
 
 void Game::initWorld()
 {
-    if(!this->worldBackTex.loadFromFile("/Users/milanceandrejic/CLionProjects/GameProject/textures/back.jpg"))
+    if(!this->worldBackTex.loadFromFile("/Users/milanceandrejic/CLionProjects/GameProject/textures/back.jpeg"))
         std::cerr << "\nERROR::GAME::Could not load background texture\n";
     this->worldBackground.setTexture(this->worldBackTex);
 }
@@ -226,9 +261,13 @@ void Game::updateEnemies()
     this->spawnTimer += 1.f;
     if(this->spawnTimer >= spawnTimerMAX)
     {
-        if(rand() % 3 ==0)
+        if(rand() % 3 == 0)
         {
             this->enemies.push_back(new BugAlien(vectorPos));
+        }
+        else if(rand() % 10 == 0)
+        {
+           this->enemies.push_back(new FireAlien(vectorPos));
         }
         else
         {
@@ -241,6 +280,9 @@ void Game::updateEnemies()
     unsigned counter=0;
     for (auto *enemy : this->enemies)
     {
+        for(Monster *fireAlien:this->enemies)
+            fireAlien->attack(this->enemyBullets);
+
         enemy->updateDirection(player->getPosition());
         enemy->update();
 
@@ -293,4 +335,16 @@ void Game::updateCombat() {
             }
         }
     }
+    //Checkin enemyBullets
+    for (int j = 0; j < this->enemyBullets.size() ; ++j)
+    {
+        if(this->player->getBounds().intersects(this->enemyBullets[j]->getBounds()))
+        {
+            player->loseHP(3);
+
+            delete this->enemyBullets[j];
+            this->enemyBullets.erase(this->enemyBullets.begin() + j);
+        }
+    }
+
 }
